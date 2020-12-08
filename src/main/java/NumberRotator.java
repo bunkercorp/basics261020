@@ -20,6 +20,9 @@ import java.util.Arrays;
 public class NumberRotator {
 
     public static long rotate (long n) {
+        if (n <= 0)
+            return 0;
+
         StringBuilder input = new StringBuilder();
         input.append(n);
         int size = input.length();
