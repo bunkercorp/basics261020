@@ -16,6 +16,29 @@ Note that the Java version expects a return value of null for an empty string or
 */
 public class JadenCase {
   public static String toJadenCase(String phrase) {
-        return null;
+      StringBuilder builder = new StringBuilder();
+        if(phrase == null || phrase.length() == 0 ){
+            return null;
+        }
+
+      for (int i = 0; i < phrase.length(); i++) {
+          boolean isLet = Character.isLetter(phrase.charAt(i));
+          //boolean isRightSymbol
+          if ((i == 0 && Character.isLetter(phrase.charAt(0)) ||
+                  ( isLet && !Character.isDigit(phrase.charAt(i-1)) &&
+                          !Character.isLetter(phrase.charAt(i-1)) && phrase.charAt(i-1) != '\'' &&
+                          phrase.charAt(i-1) != '_' && phrase.charAt(i-1) != '-'))) {
+              builder.append(Character.toUpperCase(phrase.charAt(i)));
+          }
+          else {
+              if (isLet) {
+                  builder.append(Character.toLowerCase(phrase.charAt(i)));
+              }
+              else {
+                  builder.append(phrase.charAt(i));
+              }
+          }
+      }
+      return builder.toString();
     }
 }
