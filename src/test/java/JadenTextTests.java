@@ -18,4 +18,5 @@ public class JadenTextTests {
     public void testEmptyArg() {
         assertNull("Must return null when the arg is null", JadenCase.toJadenCase(""));
     }
+
 }
