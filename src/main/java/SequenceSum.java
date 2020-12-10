@@ -22,9 +22,26 @@ Output: '0 = 0'
 
 */
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class SequenceSum {
 
     public static String showSequence(int value) {
-        return null;
+        int summ = 0;
+        StringBuilder res = new StringBuilder();
+        for (int i = 0; i < value + 1; i++) {
+            summ += i;
+            res.append(i);
+            if (i == value) {
+                res.append(" = ").append(summ);
+            } else {
+                res.append("+");
+            }
+        }
+        if (value < 0) {
+            res.append(value).append(" < 0");
+        }
+        return res.toString();
     }
 }

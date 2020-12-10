@@ -15,9 +15,30 @@ max_rot(56789) should return 68957
 */
 
 
+import javax.sound.midi.Soundbank;
+import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class NumberRotator {
 
-    public static long rotate (long n) {
-        return 0;
+    public static long rotate(long n) {
+        int multiplier = n < 0 ? -1 : 1;
+        String s = "" + n * multiplier;
+        int length = s.length();
+
+        long[] temp = new long[s.length()];
+        temp[0] = n;
+        for (int i = 0; i < length - 1; i++) {
+            String s1 = s.substring(0, i);
+            String s2 = s.substring(i + 1);
+            s = s1 + s2 + s.charAt(i);
+            temp[i + 1] = multiplier * Long.parseLong(s);
+        }
+        long max = n;
+        for (long i : temp) {
+            if (max < i) max = i;
+        }
+        return max;
     }
 }
