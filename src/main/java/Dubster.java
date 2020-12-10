@@ -29,7 +29,7 @@ public class Dubster {
         StringBuilder res = new StringBuilder();
 
         for( int i = 0; i < song.length(); i++){
-            if (!Character.isUpperCase(song.charAt(i)) || song.length() == 0)
+            if (!Character.isUpperCase(song.charAt(i)) || song.length() > 200)
                 return null;
             if(song.charAt(i) == 'W' && song.charAt(i+=1) == 'U' && song.charAt(i+=1) == 'B')
                 continue;

@@ -20,11 +20,14 @@ import java.util.Arrays;
 public class NumberRotator {
 
     public static long rotate (long n) {
-        if (n <= 0)
+        if (n == 0)
             return 0;
 
+        long first;
+        first = n < 0 ? n * (-1) : n;
+
         StringBuilder input = new StringBuilder();
-        input.append(n);
+        input.append(first);
         int size = input.length();
         long[] arrList = new long[size];
         arrList[0] = n;
@@ -42,6 +45,7 @@ public class NumberRotator {
 
             input.delete(0, input.length());
             input.append(arrList[i]);
+            arrList[i] = n < 0 ? arrList[i]* (-1): arrList[i];
 
         }
         Arrays.sort(arrList);
