@@ -23,8 +23,18 @@ Output: '0 = 0'
 */
 
 public class SequenceSum {
-
     public static String showSequence(int value) {
-        return null;
+        StringBuilder strB = new StringBuilder();
+        int result = 0;
+        if (value > 0) {
+            for (int i = 0; i <= value; i++) {
+                result += i;
+                if (i == value) {
+                    strB.append(i).append(" = ").append(result);
+                } else strB.append(i).append("+");
+            }
+        } else if (value == 0) strB.append(value).append(" = 0");
+        else strB.append(value).append(" < 0");
+        return strB.toString();
     }
 }

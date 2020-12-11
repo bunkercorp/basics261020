@@ -16,8 +16,27 @@ max_rot(56789) should return 68957
 
 
 public class NumberRotator {
-
-    public static long rotate (long n) {
-        return 0;
+    public static long rotate(long n) {
+        long o = n;
+        if (n == 0) return n;
+        else if (n < 0) n = Math.abs(n);
+        StringBuilder strB = new StringBuilder();
+        strB.append(n);
+        int l = strB.length();
+        long[] maxRot = new long[l - 1];
+        char mindChar;
+        for (int i = 0; i < l; i++) {
+            if (i == l - 1) break;
+            mindChar = strB.charAt(i);
+            strB.delete(i, i + 1);
+            strB.append(mindChar);
+            maxRot[i] = Integer.parseInt(String.valueOf(strB));
+            if (o < 0) maxRot[i] = -maxRot[i];
+        }
+        long max = Long.MIN_VALUE;
+        for (long value : maxRot) {
+            max = Math.max(value, max);
+        }
+        return max;
     }
 }
