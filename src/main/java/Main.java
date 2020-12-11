@@ -1,7 +1,7 @@
 public class Main {
     public static void main (String args[])
     {
-        FractionNumber a = new FractionNumber(-1,-2);
+        FractionNumber a = new FractionNumber(-1,1);
         FractionNumber b = new FractionNumber(-3,4);
         System.out.println(a.add(b));
         System.out.println(a.substract(b));

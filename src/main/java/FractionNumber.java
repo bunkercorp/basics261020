@@ -4,36 +4,35 @@ public class FractionNumber {
     public int denominator;
 
     FractionNumber(int a, int b) {
-        int gcd = 1;
-
-        if ((a > 0) && (b > 0)) {
-            for (int i = 1; i <= a && i <= b; i++) {
-                if (a % i == 0 && b % i == 0)
-                    gcd = i;
+        if (b!=0)
+        {int gcd = 1;
+            if ((a > 0) && (b > 0)) {
+                for (int i = 1; i <= a && i <= b; i++) {
+                    if (a % i == 0 && b % i == 0)
+                        gcd = i;
+                }
+            } else if ((a < 0) && (b > 0)) {
+                for (int i = 1; i <= Math.abs(a) && i <= b; i++) {
+                    if (Math.abs(a) % i == 0 && b % i == 0)
+                        gcd = i;
+                }
+            } else if ((a > 0) && (b < 0)) {
+                for (int i = 1; i <= a && i <= Math.abs(b); i++) {
+                    if (a % i == 0 && Math.abs(b) % i == 0)
+                        gcd = i;
+                }
+            } else if ((a < 0) && (b < 0)) {
+                b = Math.abs(b);
+                a = Math.abs(a);
+                for (int i = 1; i <= a && i <= b; i++) {
+                    if (a % i == 0 && b % i == 0)
+                        gcd = i;
+                }
             }
-        } else if ((a < 0) && (b > 0)) {
-            for (int i = 1; i <= Math.abs(a) && i <= b; i++) {
-                if (Math.abs(a) % i == 0 && b % i == 0)
-                    gcd = i;
-            }
-        } else if ((a > 0) && (b < 0)) {
-            for (int i = 1; i <= a && i <= Math.abs(b); i++) {
-                if (a % i == 0 && Math.abs(b) % i == 0)
-                    gcd = i;
-            }
-        } else if ((a < 0) && (b < 0)) {
-            b = Math.abs(b);
-            a = Math.abs(a);
-            for (int i = 1; i <= a && i <= b; i++) {
-                if (a % i == 0 && b % i == 0)
-                    gcd = i;
-            }
-        }
-
-        final int c = a / gcd;
-        final int d = b / gcd;
-        numerator = c;
-        denominator = d;
+            final int c = a / gcd;
+            final int d = b / gcd;
+            numerator = c;
+            denominator = d;}
     }
 
 
@@ -63,19 +62,28 @@ public class FractionNumber {
 
     @Override
     public String toString() {
-        if (denominator == 1)
+
+        if ((denominator == -1) && (numerator > 0))
+        {numerator = numerator * (-1);}
+        if (Math.abs(denominator) == 1)
             return String.format("%d", numerator);
 
         if (denominator == 0)
             return "DIVISION BY ZERO";
 
-        if ((denominator < 0) && (numerator < Math.abs(denominator)) || (numerator < denominator)) {
+        if ((denominator < 0) && (numerator < Math.abs(denominator)) ||
+                ((numerator < denominator) && (numerator > 0))) {
             return String.format("%d/%d", numerator, denominator);
         }
 
-        if (((numerator > Math.abs(denominator)) && (denominator < 0)) || (numerator > denominator)) {
+        if (((numerator > Math.abs(denominator)) && (denominator < 0))
+                || (numerator > denominator) ||
+                ((Math.abs(numerator) > denominator) && (denominator > 0))) {
             int integer = numerator / denominator;
             int newNumerator = numerator - (integer * denominator);
+            if ((integer < 0) && ((newNumerator < 0) || (denominator < 0)))
+            {newNumerator = Math.abs(newNumerator);
+                denominator = Math.abs(denominator);}
             return String.format("%d %d/%d", integer, newNumerator, denominator);
         }
 
