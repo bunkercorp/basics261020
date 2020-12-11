@@ -8,6 +8,6 @@ public class SequenceSumTests {
         assertEquals("0+1+2+3+4+5+6 = 21", SequenceSum.showSequence(6));
         assertEquals("0+1+2+3+4+5+6+7+8+9+10 = 55", SequenceSum.showSequence(10));
         assertEquals("0 = 0", SequenceSum.showSequence(0));
-        assertEquals("-5 < 0", SequenceSum.showSequence(-5));
+        assertEquals("-10 < 0", SequenceSum.showSequence(-10));
     }
 }

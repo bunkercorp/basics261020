@@ -25,7 +25,48 @@ Return the words of the initial song that Polycarpus used to make a dubsteb remi
 */
 
 public class Dubster {
+
     public static String songDecoder(String song) {
-        return null;
+        final boolean isNotEmpty = song != null && !song.isEmpty();
+        if (!isNotEmpty)
+            return null;
+
+        char[] songChars = song.toCharArray();
+
+        if (songChars.length >= 200)
+            return null;
+
+        for (char songChar : songChars) {
+            final boolean isAlpha = Character.isAlphabetic(songChar);
+            final boolean isUppercase = songChar >= 'A' && songChar <= 'Z';
+            if (!isAlpha || !isUppercase)
+                return null;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        int i, j;
+        for (i = 0; i < song.length() - 2; i++) {
+            if (song.substring(i, i + 3).equals("WUB")) {
+                sb.append(" ");
+                i += 2;
+            } else {
+                sb.append(song.substring(i, i + 1));
+            }
+
+            for (j = 1; j < sb.length(); j++)
+                if ((sb.substring(j - 1, j).equals(" ")) && (sb.substring(j, j + 1).equals(" "))) {
+                    sb.delete(j - 1, j);
+                }
+        }
+
+        sb.append(song.substring(i));
+
+        if (sb.substring(0, 1).equals(" ")) sb.delete(0, 1);
+
+        if ((sb.length() > 2) && (sb.substring(sb.length() - 1, sb.length()).equals(" ")))
+            sb.delete(sb.length() - 1, sb.length());
+
+        return sb.toString();
     }
+
 }
