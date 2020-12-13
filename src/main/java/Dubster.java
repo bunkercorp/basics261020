@@ -29,8 +29,10 @@ public class Dubster {
         StringBuilder res = new StringBuilder();
 
         for( int i = 0; i < song.length(); i++){
+            // song.length() не зависит от i и условие по ИЛИ, делать этому вычислению в цикле нечего
             if (!Character.isUpperCase(song.charAt(i)) || song.length() > 200)
                 return null;
+             // а смысл этого continue? можно просто if(!все то что в условии){работы;}
             if(song.charAt(i) == 'W' && song.charAt(i+=1) == 'U' && song.charAt(i+=1) == 'B')
                 continue;
             else{

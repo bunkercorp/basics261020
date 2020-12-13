@@ -13,4 +13,10 @@ public class NumberRotatorTests {
         testing(NumberRotator.rotate(896219342), 962193428);
         testing(NumberRotator.rotate(69418307), 94183076);
     }
+
+    @Test
+    public void test2() {
+        testing(NumberRotator.rotate(-10085), -851);
+    }
+
 }

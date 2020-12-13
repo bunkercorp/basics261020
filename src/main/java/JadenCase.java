@@ -24,6 +24,7 @@ public class JadenCase {
       for (int i = 0; i < phrase.length(); i++) {
           boolean isLet = Character.isLetter(phrase.charAt(i));
           //boolean isRightSymbol
+          // надо все же было это условие вынести в переменную. Тогда по ее имени можно было бы догадываться, что она значит.
           if ((i == 0 && Character.isLetter(phrase.charAt(0)) ||
                   ( isLet && !Character.isDigit(phrase.charAt(i-1)) &&
                           !Character.isLetter(phrase.charAt(i-1)) && phrase.charAt(i-1) != '\'' &&

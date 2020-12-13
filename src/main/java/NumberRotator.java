@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 public class NumberRotator {
 
-    public static long rotate (long n) {
+    public static long rotate(long n) {
         if (n == 0)
             return 0;
 
@@ -37,6 +37,7 @@ public class NumberRotator {
                 if (j == count) {
                     arrList[i] += (input.charAt(j) - 48) * Math.pow(10, 0);
                 } else {
+                    // запусти тест номер два, там StringIndexOutOfBoundsException
                     arrList[i] += (input.charAt(j) - 48) * Math.pow(10, change);
                     change--;
                 }
@@ -45,10 +46,11 @@ public class NumberRotator {
 
             input.delete(0, input.length());
             input.append(arrList[i]);
-            arrList[i] = n < 0 ? arrList[i]* (-1): arrList[i];
+            arrList[i] = n < 0 ? arrList[i] * (-1) : arrList[i];
 
         }
         Arrays.sort(arrList);
-        return arrList[size-1];
+        // брутально.
+        return arrList[size - 1];
     }
 }

@@ -22,4 +22,14 @@ public class DubsterSongDecoderTests {
     public void test4() {
         assertEquals("LOREM IPSUM DOLOR SIT AMET", Dubster.songDecoder("LOREMWUBIPSUMWUBWUBWUBWUBWUBDOLORWUBSITWUBWUBAMETWUB"));
     }
+
+    @Test
+    public void test5() {
+        assertEquals("LOREM IPSUM DOLOR SIT AMET", Dubster.songDecoder("LOREMWUBIPSUMWUBWUBWUBWUBWUBDOLORWUBSITWUBWUBAMET"));
+    }
+
+    @Test
+    public void test6() {
+        assertEquals("LOREM IPSUM DOLOR SIT AMET", Dubster.songDecoder("WUBLOREMWUBIPSUMWUBWUBWUBWUBWUBDOLORWUBSITWUBWUBAMET"));
+    }
 }

@@ -31,6 +31,7 @@ public class SequenceSum {
         if( value < 0){
             return out.append(value).append(" < 0").toString();
         }
+        // толку от этого ифа? весь следующий код в принципе сделает то же самое
         if(value == 0){
             return out.append("0 = 0").toString();
         }
