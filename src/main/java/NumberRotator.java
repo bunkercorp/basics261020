@@ -23,6 +23,7 @@ public class NumberRotator {
         StringBuilder strB = new StringBuilder();
         strB.append(n);
         int l = strB.length();
+        // незачем хранить все преобразования, последнего достаточно
         long[] maxRot = new long[l - 1];
         char mindChar;
         for (int i = 0; i < l; i++) {

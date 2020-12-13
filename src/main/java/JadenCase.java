@@ -23,6 +23,7 @@ public class JadenCase {
         array[0] = Character.toUpperCase(phrase.charAt(0));
         int counter = 0;
         for (int i = 0; i < phrase.length(); i++) {
+           // оой-веей. Почему не применять что-то типа phrase.charAt(i) == 'a' ???
             final boolean words = (phrase.charAt(i) == 39 ||
                     phrase.charAt(i) == 45 ||
                     phrase.charAt(i) == 95 ||
