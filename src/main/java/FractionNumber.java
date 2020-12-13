@@ -52,6 +52,7 @@ public class FractionNumber {
     }
 
     private static boolean isNotNull(long a, long b){
+      // числитель может быть нулем
         return a != 0 && b != 0;
     }
     private static boolean isNull(FractionNumber a){
