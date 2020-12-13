@@ -30,11 +30,17 @@ public class FractionNumber {
     public String toString() {
         if (denominator == 0) {
             return "DIVISION BY ZERO";
-        } else if (Math.abs(denominator) == 1) {
+        }
+        //else
+        if (Math.abs(denominator) == 1) {
             return String.format("%d", numerator);
-        } else if (Math.abs(denominator) > Math.abs(numerator)) {
+        }
+        //  else
+        if (Math.abs(denominator) > Math.abs(numerator)) {
             return String.format("%d/%d", numerator, denominator);
-        } else {
+        }
+        //else
+        {
             int integerFromFractionNumber = numerator / denominator;
             return String.format("%d %d/%d", integerFromFractionNumber, Math.abs(numerator % denominator), denominator);
         }
@@ -44,6 +50,7 @@ public class FractionNumber {
     private int nod(int numerator, int denominator) {
         int nod = 1;
         if (denominator != 0) {
+            // Math.max(numerator, denominator)
             int limit = Math.abs(numerator) < Math.abs(denominator) ? Math.abs(denominator) : Math.abs(numerator);
             for (int i = limit; i > 1; i--) {
                 if (numerator % i == 0 && denominator % i == 0) {
