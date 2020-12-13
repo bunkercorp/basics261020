@@ -28,7 +28,7 @@ public class NumberRotator {
         String numberInString = String.valueOf(n);
 
         char[] numberInChar = numberInString.toCharArray();
-
+        // вряд ли тебе нужно хранить всю историю преобразований
         long[] arrayResult = new long[length];
         arrayResult[length - 1] = nOriginal;
 

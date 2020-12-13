@@ -35,24 +35,26 @@ public class SequenceSum {
             return result = "0 = 0";
         if (less0)
             return result = String.format("%s < 0", value);
-        else {
-            int[] array = new int[value + 1];
-            for (int i = 0; i < value; i++) {
-                array[value - i] = value - i;
-            }
-
-            for (int element : array) {
-                sum += element;
-            }
-
-            StringBuilder sb = new StringBuilder();
-            sb.append(array[0]);
-            for (int i = 1; i < array.length; i++) {
-                sb.append('+').append(array[i]);
-            }
-            sb.append(' ').append('=').append(' ').append(sum);
-            return sb.toString();
+        // else смысла не имеет, после ретурна жизни нет.
+        // else {
+        int[] array = new int[value + 1];
+        for (int i = 0; i < value; i++) {
+            array[value - i] = value - i;
         }
+
+        for (int element : array) {
+            sum += element;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(array[0]);
+        for (int i = 1; i < array.length; i++) {
+            sb.append('+').append(array[i]);
+        }
+        //sb.append(" = ").append(sum)
+        sb.append(' ').append('=').append(' ').append(sum);
+        return sb.toString();
+        //}
     }
 
 }

@@ -38,6 +38,7 @@ public class Dubster {
 
         for (char songChar : songChars) {
             final boolean isAlpha = Character.isAlphabetic(songChar);
+           //Character.isUppercase
             final boolean isUppercase = songChar >= 'A' && songChar <= 'Z';
             if (!isAlpha || !isUppercase)
                 return null;
@@ -53,6 +54,7 @@ public class Dubster {
                 sb.append(song.substring(i, i + 1));
             }
 
+            //есть более щадящий способ это сделать, кроме как циклом в цикле удалять из накопителя. Можно просто туда не писать.
             for (j = 1; j < sb.length(); j++)
                 if ((sb.substring(j - 1, j).equals(" ")) && (sb.substring(j, j + 1).equals(" "))) {
                     sb.delete(j - 1, j);
