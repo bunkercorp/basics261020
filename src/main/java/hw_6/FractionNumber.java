@@ -18,6 +18,7 @@ public class FractionNumber {
         return a / greatestCommonDivisor(a, b) * b;
     }
 
+    //private ? Также, единственное место где этот метод применяется - это конструктор. Может, стоит перенести логику туда?
     public void fractionReduction() {
         int gcd = greatestCommonDivisor(numerator, denominator);
         if (gcd != 1) {
@@ -55,14 +56,19 @@ public class FractionNumber {
     public String toString() {
         if (this.denominator == 0) {
             return "DIVISION BY ZERO";
-        } else if (denominator == 1) {
-            return String.format("%d", numerator);
-        } else if (Math.abs(numerator) < Math.abs(denominator)) {
-            return String.format("%d/%d", numerator, denominator);
-        } else {
-            int wholeFraction = numerator / denominator;
-            numerator = numerator - wholeFraction * denominator;
-            return String.format("%d %d/%d", wholeFraction, numerator, denominator);
         }
+        //else
+        if (denominator == 1) {
+            return String.format("%d", numerator);
+        }
+        //else
+        if (Math.abs(numerator) < Math.abs(denominator)) {
+            return String.format("%d/%d", numerator, denominator);
+        }
+        //      else {
+        int wholeFraction = numerator / denominator;
+        numerator = numerator - wholeFraction * denominator;
+        return String.format("%d %d/%d", wholeFraction, numerator, denominator);
+        //}
     }
 }
