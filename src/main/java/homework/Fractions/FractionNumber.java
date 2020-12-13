@@ -27,6 +27,7 @@ public class FractionNumber {
     }
 
 
+    // private, наверное
     public static int greatestCommonDenominator(int a, int b) {
         if (a < 0)
             a = -a;
@@ -50,7 +51,7 @@ public class FractionNumber {
 
     public FractionNumber add(FractionNumber b) {
         if (denominator == 0 || b.denominator == 0)
-            return new FractionNumber(numerator,0);
+            return new FractionNumber(numerator, 0);
         int lcd = lowestCommonDenominator(denominator, b.denominator);
         int resultNumerator = numerator * lcd / denominator + b.numerator * lcd / b.denominator;
         return new FractionNumber(resultNumerator, lcd);
@@ -58,7 +59,7 @@ public class FractionNumber {
 
     public FractionNumber substract(FractionNumber b) {
         if (denominator == 0 || b.denominator == 0)
-            return new FractionNumber(numerator,0);
+            return new FractionNumber(numerator, 0);
         int lcd = lowestCommonDenominator(denominator, b.denominator);
         int resultNumerator = numerator * lcd / denominator - b.numerator * lcd / b.denominator;
         return new FractionNumber(resultNumerator, lcd);
@@ -66,7 +67,7 @@ public class FractionNumber {
 
     public FractionNumber multiply(FractionNumber b) {
         if (denominator == 0 || b.denominator == 0)
-            return new FractionNumber(numerator,0);
+            return new FractionNumber(numerator, 0);
         int resultNumerator = numerator * b.numerator;
         int resultDenominator = denominator * b.denominator;
         return new FractionNumber(resultNumerator, resultDenominator);
@@ -74,7 +75,7 @@ public class FractionNumber {
 
     public FractionNumber devide(FractionNumber b) {
         if (denominator == 0 || b.denominator == 0)
-            return new FractionNumber(numerator,0);
+            return new FractionNumber(numerator, 0);
         int resultNumerator = b.numerator * denominator;
         int resultDenominator = b.denominator * numerator;
         return new FractionNumber(resultNumerator, resultDenominator);
@@ -84,17 +85,22 @@ public class FractionNumber {
     public String toString() {
         if (this.denominator == 0)
             return "DIVISION BY ZERO";
-        else if (Math.abs(numerator) > Math.abs(denominator) && Math.abs(denominator) != 1) {
+        // после ретурна жизни нет, else не имеет смысла
+        //else
+        if (Math.abs(numerator) > Math.abs(denominator) && Math.abs(denominator) != 1) {
             int integerPart = numerator / denominator;
             numerator = numerator - integerPart * denominator;
             return String.format("%d %d/%d", integerPart, Math.abs(numerator), Math.abs(denominator));
-        } else if (Math.abs(numerator) > Math.abs(denominator) &&
+        }
+        //else
+        if (Math.abs(numerator) > Math.abs(denominator) &&
                 Math.abs(denominator) == 1 ||
                 numerator == 0 ||
-                Math.abs(numerator) == Math.abs(denominator)){
+                Math.abs(numerator) == Math.abs(denominator)) {
             int integerPart = numerator / denominator;
             return String.format("%d", integerPart);
-        } else
+        }
+        //else
         return String.format("%d/%d", numerator, denominator);
     }
 }
