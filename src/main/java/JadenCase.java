@@ -20,16 +20,17 @@ public class JadenCase {
 
     public static String toJadenCase(String phrase) {
 
+        // phrase == null || phrase.isEmpty()
         if (phrase == null || phrase == "") {
             return null;
         }
-
+        // StringBuilder?
         phraseAfterFormating = phraseAfterFormating + phrase.substring(0, 1).toUpperCase();
         for (int i = 1; i < phrase.length(); i++) {
             if (" ".equals(phrase.substring(i - 1, i)))
                 phraseAfterFormating = phraseAfterFormating + phrase.substring(i, i + 1).toUpperCase();
             else
-                phraseAfterFormating = phraseAfterFormating + phrase.substring(i, i + 1);
+                phraseAfterFormating = phraseAfterFormating + phrase.substring(i, i + 1); // phrase.substring(i, i + 1) это не более чем phrase.charAt(i)
         }
         return phraseAfterFormating;
     }

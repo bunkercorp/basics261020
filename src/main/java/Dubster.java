@@ -31,9 +31,11 @@ public class Dubster {
     private static final String eraseString = "WUB";
 
     public static String songDecoder(String song) {
+        // а если прилетел null?
         int stringLenth = song.length();
 
         if (stringLenth > stringLimit || stringLenth == 0 || !song.equals(song.toUpperCase())) {
+            // фуфуфу =)
             System.out.println("String is invalid!");
             return song;
         }

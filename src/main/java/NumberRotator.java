@@ -29,14 +29,14 @@ public class NumberRotator {
         if (n < 0) {
             originalNumberStr = originalNumberStr.substring(1);
         }
-
+        // тебе незачем хранить все предыдущие версии, одной достаточно
         long [] numbers = new long [originalNumberStr.length()];
 
         for (int i = 0; i < originalNumberStr.length(); i++) {
             if (i < originalNumberStr.length() - 1) {
                 originalNumberStr = originalNumberStr.substring(0, i) +
                         originalNumberStr.substring(i + 1) +
-                        originalNumberStr.substring(i, i + 1);
+                        originalNumberStr.substring(i, i + 1); // charAt
 
                 numbers[i] = n < 0 ? -Long.parseLong(originalNumberStr) : Long.parseLong(originalNumberStr);
             }

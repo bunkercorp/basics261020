@@ -25,6 +25,7 @@ Output: '0 = 0'
 public class SequenceSum {
 
     public static String showSequence(int value) {
+     // толку? у тебя же стрингбилдер появляется
         String result = new String();
 
         if (value < 0) {
