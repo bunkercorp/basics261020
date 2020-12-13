@@ -27,8 +27,10 @@ public class NumberRotator {
         String s = "" + n * multiplier;
         int length = s.length();
 
+        // незачем хранить всю историю преобразований, тебе только последнее всегда нужно
         long[] temp = new long[s.length()];
         temp[0] = n;
+        // абсолютно все входные значения заслуживают внимания?
         for (int i = 0; i < length - 1; i++) {
             String s1 = s.substring(0, i);
             String s2 = s.substring(i + 1);

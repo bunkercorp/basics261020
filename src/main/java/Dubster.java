@@ -26,6 +26,7 @@ Return the words of the initial song that Polycarpus used to make a dubsteb remi
 
 public class Dubster {
     public static String songDecoder(String song) {
+        // брутально =)
         boolean upperCase = song.equals(song.toUpperCase());
         boolean length = song.length() <= 200;
         boolean notEmpty = !song.isEmpty();
@@ -33,12 +34,14 @@ public class Dubster {
         if (!upperCase || !length || !notEmpty) {
             return null;
         }
+        // final?
         String toRemove = "WUB";
         int indexWUB = song.indexOf(toRemove);
 
         while (indexWUB != -1) {
             String connector = indexWUB == 0 || indexWUB == song.length() - toRemove.length() || song.charAt(indexWUB - 1) == ' ' ? "" : " ";
             song = song.substring(0, indexWUB) + connector + song.substring(toRemove.length() + indexWUB);
+            // у тебя тут получается цикл в цикле, так как indexOf сам с циклом работает. Уверяю, есть более щадящий способ.
             indexWUB = song.indexOf(toRemove);
         }
         return song;

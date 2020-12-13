@@ -20,12 +20,13 @@ public class JadenCase {
     public static String toJadenCase(String phrase) {
         if (phrase == null) {
             return null;
-        } else if (phrase.equals("")) {
+        } else if (phrase.equals("")) { // ?? if(phrase == null || phrase.isEmpty())return null;
             return null;
         }
         char[] phraseArray = phrase.toCharArray();
         phraseArray[0] = Character.toUpperCase(phraseArray[0]);
         for (int i = 0; i < phraseArray.length; i++) {
+            // а как же дефис - подчерк - апостроф ?
             if (Character.isSpaceChar(phraseArray[i]) || !Character.isLetterOrDigit(phraseArray[i])) {
                 phraseArray[i + 1] = Character.toUpperCase(phraseArray[i + 1]);
             }

@@ -39,6 +39,7 @@ public class SequenceSum {
                 res.append("+");
             }
         }
+         // это условие заслуживает быть в начале
         if (value < 0) {
             res.append(value).append(" < 0");
         }
