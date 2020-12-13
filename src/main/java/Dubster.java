@@ -32,6 +32,7 @@ public class Dubster {
         boolean previousWordIsWUB = true;
 
         for (int i = 0; i < song.length(); ) {
+            // StringIndexOutOfBoundsException если в конце ремикса нет ваба. Запусти тест номер 5
             if (WUB.equals(song.substring(i, i + 3))) {
                 i += 3;
 

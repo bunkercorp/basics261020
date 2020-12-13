@@ -16,7 +16,7 @@ Note that the Java version expects a return value of null for an empty string or
 */
 public class JadenCase {
     public static String toJadenCase(String phrase) {
-
+        // для проверки строки на пустоту есть .isEmpty()
         if (phrase == null || phrase.equals(""))
             return null;
 
@@ -26,12 +26,13 @@ public class JadenCase {
             wordsNew.setCharAt(0, Character.toUpperCase(phrase.charAt(0)));
 
         for (int i = 1; i < phrase.length(); i++) {
+            // как насчет чего-то типа !(Character.isLetterOrDigit(phrase.charAt(i - 1))  || phrase.charAt(i - 1) == '`' || phrase.charAt(i - 1) == '_' || phrase.charAt(i - 1) == '-'); ??
             final boolean symb1 = phrase.charAt(i - 1) >= '!' && phrase.charAt(i - 1) <= ',';
             final boolean symb2 = phrase.charAt(i - 1) >= '.' && phrase.charAt(i - 1) <= '/';
             final boolean symb3 = phrase.charAt(i - 1) >= ':' && phrase.charAt(i - 1) <= '@';
             final boolean symb4 = phrase.charAt(i - 1) >= '[' && phrase.charAt(i - 1) <= '^';
             final boolean symb5 = phrase.charAt(i - 1) >= '{' && phrase.charAt(i - 1) <= '~';
-
+            // опять пробел =)
             if (Character.isAlphabetic(phrase.charAt(i)) && (Character.isWhitespace(phrase.charAt(i - 1))
                     || symb1 || symb2 || symb3 || symb4 || symb5))
                 wordsNew.setCharAt(i, Character.toUpperCase(phrase.charAt(i)));

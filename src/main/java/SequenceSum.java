@@ -30,7 +30,9 @@ public class SequenceSum {
         }
 
         StringBuilder progression = new StringBuilder(value);
+        // зачем? можно же захардкодить. Ну, и раз уж так, то final был бы нелишним
         String space = "+";
+        // почему сразу не установить в "0"? Ноль же там всегда будет
         String result = null;
         int resultProgression = 0;
 
