@@ -5,6 +5,7 @@ public class FractionNumber {
 
     FractionNumber(int a, int b) {
         if (b!=0)
+      // многовато будет.
         {int gcd = 1;
             if ((a > 0) && (b > 0)) {
                 for (int i = 1; i <= a && i <= b; i++) {
