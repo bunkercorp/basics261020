@@ -96,6 +96,9 @@ public class URL {
         }
 
         public  Composer host(String str){
+            if(str.isEmpty())
+                return this;
+
             boolean isRightDomen = str.substring(3).contains(".")
                     && !str.substring(str.length() - 2).contains(".") && !str.contains(" ");
 

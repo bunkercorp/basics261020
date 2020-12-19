@@ -9,7 +9,7 @@ public class Main {
                 .authority(" ", "passw345")
                 .path("")
                 .port(467)
-                .host("loca.lhyui.rt")
+                .host("")
                 .fragment("#yui")
                 .composer();
         System.out.println(myUrl.toString());
