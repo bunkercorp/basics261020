@@ -33,6 +33,17 @@ public class URL {
 
     }
 
+    private URL(){
+        sheme = null;
+        uname = null;
+        pwd = null;
+        host = null;
+        port = 0;
+        path = null;
+        fragment = null;
+
+    }
+
     @Override
     public String toString(){
         if(host == null)
@@ -107,7 +118,7 @@ public class URL {
             if(composerPath != null)
             buildPath.append(composerPath);
 
-            if(!input.contains(" ")){
+            if(!input.contains(" ") && !input.isEmpty()){
                 if(input.indexOf("/") == 0)
                 buildPath.append(input);
                 else buildPath.append("/").append(input);
@@ -155,6 +166,9 @@ public class URL {
         }
 
         public URL composer(){
+            if(composerHost == null){
+                return new URL();
+            }
 
             return new URL(
                     composerSheme,
