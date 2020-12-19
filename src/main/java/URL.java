@@ -44,7 +44,6 @@ public class URL {
             output.append(uname);
             if (pwd != null)
                 output.append(":").append(pwd);
-            output.append("@");
         }
         output.append(host);
         if(port != 0 && port != 80 && port != 443 )

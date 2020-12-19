@@ -10,7 +10,8 @@ public class Main {
     public static  void main(String[] args){
 
         URL myUrl = new URL.Composer()
-                .isSecure(true)
+                .isSecure(false)
+                .authority("name")
                 .path("ert", "dfgh")
                 .host("localhost")
                 .fragment("#yui")
