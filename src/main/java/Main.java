@@ -13,6 +13,7 @@ public class Main {
                 .isSecure(true)
                 .path("ert", "dfgh")
                 .host("localhost")
+                .fragment("#yui")
                 .composer();
         System.out.println(myUrl.toString());
 

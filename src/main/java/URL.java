@@ -86,7 +86,7 @@ public class URL {
 
         public  Composer host(String str){
             boolean isRightDomen = str.substring(3).contains(".")
-                    && !str.substring(str.length() - 2).contains(".");
+                    && !str.substring(str.length() - 2).contains(".") && !str.contains(" ");
 
             if(isIP(str) || isRightDomen || str.equals("localhost"))
                 composerHost = str;
@@ -129,15 +129,18 @@ public class URL {
         }
 
         public Composer authority(String uname){
-            if(!uname.substring(uname.length() - 1).contains("@"))
-                composerUname = uname + "@";
-            else composerUname = uname;
+            if(!uname.contains(" ")) {
+                if (!uname.substring(uname.length() - 1).contains("@"))
+                    composerUname = uname + "@";
+                else composerUname = uname;
+            }
 
             return this;
         }
 
         public Composer authority(String uname, String pwd){
-            if(uname.length() > 0 && pwd.length() > 0) {
+
+            if(uname.length() > 0 && pwd.length() > 0 && !uname.contains(" ")) {
                 composerUname = uname + ":";
                 composerPwd = pwd + "@";
 
@@ -147,7 +150,7 @@ public class URL {
         }
 
         public Composer fragment(String input) {
-            if(!input.isEmpty()){
+            if(!input.isEmpty() && !input.contains(" ")){
                composerFragment = input.indexOf("#") == 0? input : "#" + input;
             }
             return this;
