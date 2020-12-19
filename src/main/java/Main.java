@@ -1,19 +1,25 @@
+
+import org.apache.commons.validator.routines.InetAddressValidator;
+import java.net.Inet4Address;
+import java.lang.Object;
+import java.net.InetAddress;
+
 public class Main {
 
 
     public static  void main(String[] args){
-        //long a = 5;
-        //System.out.println(lcm(-4,7));
-        FractionNumber f1 = new FractionNumber(-15,7);
-        FractionNumber f2 = new FractionNumber(4,7);
-        //System.out.println(f1);
-        //System.out.println(f2.add(f1));
-        //System.out.println(f1.add(f2));
-        //System.out.println(f1.multiply(f2));
-        System.out.println(f1.divide(f2));
-        // System.out.println("lcm2 " + lcm(4,3));
-        //System.out.println(-4 / -1);
+       // String str = new String("2001:0db8:85a3:0000:0000:8a2e:0370:7334");
+//        System.out.println(str.indexOf("//"));
+        //InetAddressValidator validator = InetAddressValidator.getInstance();
+        //System.out.println(validator.isValid(str));
+
+        URL myUrl = new URL.Composer()
+                .isSecure(true)
+                .path("ert", "dfgh")
+                .composer();
+        System.out.println(myUrl.toString());
 
 
+        //InetAddress ip = new InetAddress("47686464848");
     }
 }
