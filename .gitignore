@@ -1,3 +1,5 @@
-*.class
+*.classgit g
 .idea/
-target/
+target
+.gitignore
+basics261020.iml
