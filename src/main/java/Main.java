@@ -11,7 +11,7 @@ public class Main {
 
         URL myUrl = new URL.Composer()
                 .isSecure(false)
-                .authority("name")
+                .authority("name", "passw345")
                 .path("ert", "dfgh")
                 .host("localhost")
                 .fragment("#yui")

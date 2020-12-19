@@ -44,6 +44,7 @@ public class URL {
             output.append(uname);
             if (pwd != null)
                 output.append(":").append(pwd);
+            output.append("@");
         }
         output.append(host);
         if(port != 0 && port != 80 && port != 443 )
@@ -128,21 +129,18 @@ public class URL {
         }
 
         public Composer authority(String uname){
-            if(!uname.contains(" ")) {
-                if (!uname.substring(uname.length() - 1).contains("@"))
-                    composerUname = uname + "@";
-                else composerUname = uname;
+            if(uname.length() > 0 && !uname.contains(" ")) {
+                    composerUname = uname;
             }
 
             return this;
         }
 
         public Composer authority(String uname, String pwd){
+            authority(uname);
 
-            if(uname.length() > 0 && pwd.length() > 0 && !uname.contains(" ")) {
-                composerUname = uname + ":";
-                composerPwd = pwd + "@";
-
+            if(pwd.length() > 0 && !pwd.contains(" ")) {
+                composerPwd = pwd;
             }
 
             return this;
