@@ -10,13 +10,13 @@ public class URL {
     }
 
 
-    public Sheme sheme;
-    public String uname;
-    public String pwd;
-    public String host;
-    public int port;
-    public String path;
-    public String fragment;
+    final public Sheme sheme;
+    final public String uname;
+    final public String pwd;
+    final public String host;
+    final public int port;
+    final public String path;
+    final public String fragment;
 
 
     private URL( Sheme inputSh, String inputUname, String inputPwd, String inputHost,
@@ -37,6 +37,7 @@ public class URL {
     public String toString(){
         if(host == null)
             return null;
+
         StringBuilder output = new StringBuilder();
         output.append(sheme).append("://");
         if(uname != null) {
@@ -47,7 +48,7 @@ public class URL {
         }
         output.append(host);
         if(port != 0 && port != 80 && port != 443 )
-            output.append(port);
+            output.append(":").append(port);
         if(path != null)
             output.append(path);
         if(fragment != null)
@@ -58,14 +59,12 @@ public class URL {
 
 
 
-
-
     public static class Composer{
         private Sheme composerSheme = Sheme.http;
         private int composerPort = 80;
         private String composerPath;
         private String composerUname;
-        private  String composerPwd;
+        private String composerPwd;
         private String composerHost;
         private String composerFragment;
 
@@ -79,7 +78,6 @@ public class URL {
         }
 
 
-
         private boolean isIP (String str){
             InetAddressValidator validator = InetAddressValidator.getInstance();
            return validator.isValid(str);
@@ -89,7 +87,8 @@ public class URL {
         public  Composer host(String str){
             boolean isRightDomen = str.substring(3).contains(".")
                     && !str.substring(str.length() - 2).contains(".");
-            if(isIP(str) || isRightDomen)
+
+            if(isIP(str) || isRightDomen || str.equals("localhost"))
                 composerHost = str;
 
             return this;
@@ -102,15 +101,12 @@ public class URL {
             return this;
         }
 
-//        private Composer emptyPort(){
-//            if((composerPort < 1 && composerShema == Sheme.https)
-//            composerPort = 443;
-//            return this;
-//        }
 
         public Composer path (String input){
             StringBuilder buildPath = new StringBuilder();
+            if(composerPath != null)
             buildPath.append(composerPath);
+
             if(!input.contains(" ")){
                 if(input.indexOf("/") == 0)
                 buildPath.append(input);
@@ -125,9 +121,7 @@ public class URL {
             if(args.length > 0){
                 for(String text : args){
                     path(text);
-//                    if(text.indexOf("/") !=0)
-//                        composerPath = composerPath.concat("/" + text);
-//                    else composerPath = composerPath.concat(text);
+
                 }
             }
             return this;
@@ -161,7 +155,6 @@ public class URL {
         }
 
         public URL composer(){
-
 
             return new URL(
                     composerSheme,
