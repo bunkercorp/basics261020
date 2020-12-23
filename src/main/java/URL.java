@@ -32,7 +32,7 @@ public class URL {
 
 
     }
-
+// смысл?
     private URL(){
         sheme = null;
         uname = null;
@@ -110,6 +110,7 @@ public class URL {
 
         public Composer port(int a){
             if( a < 0 || a > 65535)
+//              с чего бы? этот метод всегда должен вернуть инстанцию билдера
                 return null;
             composerPort = a;
             return this;
