@@ -26,6 +26,7 @@ public class Url {
         private String fragment;
 
         public Builder(String host) {
+          // в IPv6 нет точек. И что?
             if (host == null || host.isEmpty() || !host.contains(".")) {
                 throw new RuntimeException("Host for URl is required");
             }
@@ -88,7 +89,7 @@ public class Url {
             }
             return this;
         }
-
+// а где возврат нулла если данные ,собранные билдером, невалидны?
         public Url build() {
             return new Url(scheme, authority, host, port, path, fragment);
         }
