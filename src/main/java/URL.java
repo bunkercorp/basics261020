@@ -88,7 +88,7 @@ public class URL {
             return this;
         }
 
-
+        // смысл? этот код встречается только в одном методе.
         private boolean isIP (String str){
             InetAddressValidator validator = InetAddressValidator.getInstance();
            return validator.isValid(str);
