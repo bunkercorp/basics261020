@@ -62,6 +62,7 @@ public class URL {
 
         public static boolean hasDot(String input) {
             final boolean hasDot;
+            // input.indexOf('.') ???
             return hasDot = (input.indexOf(46) != -1);
         }
 
@@ -187,14 +188,14 @@ public class URL {
 
         public URL compose() {
 
-
+            //мне кажется что ряду условий нужно дать имена.
             if (((composerScheme != null) && (composerHost != null)) && ((composerFragment == null) || (composerAuthority == null) || (composerPort == 0) || (composerPath == null))) {
                 return new URL(composerScheme, composerAuthority, composerPort, composerHost, composerPath, composerFragment);
             } else if ((composerScheme == null) || (composerHost == null) || (composerFragment.equals(" "))
                     || (composerPath.equals(" ")) || (composerPort == -1) || (composerAuthority.equals(" "))) {
                 return null;
             }
-
+        // многовато раз встречается return null в этом методе.1
             return null;
         }
 
