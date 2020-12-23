@@ -11,6 +11,7 @@ public class URL {
     private String host;
 
 
+
     @Override
     public String toString() {
         StringBuilder url = new StringBuilder();
@@ -166,6 +167,7 @@ public class URL {
             if (userName == null || userName.length() == 0) {
                 url.authority = null;
             } else {
+               // работа над строкой - задача URL::toString , а не методов билдера
                 url.authority = userName + ":" + password;
             }
             return this;
@@ -187,7 +189,7 @@ public class URL {
             if (!isValid) {
                 return null;
             }
-
+//конструктор урла должен был быть вызван где-то здесь
             return url;
         }
 
