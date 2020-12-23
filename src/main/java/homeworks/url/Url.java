@@ -15,6 +15,7 @@ public class Url {
     private String authority_passw;
     private String fragment;
 
+    //private.
     public Url(String host) {
         if (host != null) {
             this.host = host;
@@ -23,10 +24,12 @@ public class Url {
         }
     }
 
+
     public class Composer {
 
         public Composer isSecure(boolean isSecure) {
             if (isSecure) {
+             // воу-воу. Нужно собирать данные и потом в едином порыве их пробрасыват ьв конструктор, а не вот это вот.
                 Url.this.scheme = schemeSecureConst;
                 if (Url.this.port == null) {
                     Url.this.port = portSecureConst;
@@ -114,7 +117,7 @@ public class Url {
         if (host == null) {
             return null;
         }
-
+// а чем
         String login = "";
         if (authority_login != null && authority_passw == null) {
             login = String.format("%s@", authority_login);
@@ -123,17 +126,17 @@ public class Url {
         } else if (authority_login != null && authority_passw != null) {
             login = String.format("%s:%s@", authority_login, authority_passw);
         }
-
+// же не
         String port = "";
         if (!this.port.isEmpty() && !this.port.equals(portConst) && !this.port.equals(portSecureConst)) {
             port = ":" + this.port;
         }
-
+// угодил
         String fragment = "";
         if (this.fragment != null) {
             fragment = "#" + this.fragment;
         }
-
+// StringBuilder ?
         String path = "";
         if (this.path != null) {
             path = "/" + this.path;
