@@ -171,6 +171,7 @@ public class URL {
 
         public URL composer(){
             if(composerHost == null){
+               //return null
                 return new URL();
             }
 
