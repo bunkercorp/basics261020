@@ -1,13 +1,13 @@
 import java.util.regex.Pattern;
 
 public class URL {
-    public String proto;
-    public int number;
-    public String strPath;
-    public String user;
-    public String pwd;
-    public String strFrag;
-    public String host;
+    public final String proto;
+    public final int number;
+    public final String strPath;
+    public final String user;
+    public final String pwd;
+    public final String strFrag;
+    public final String host;
 
     private URL(String pr, String usr, String pw, String hst, int prt, String pth, String frag){
         proto = pr;
