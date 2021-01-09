@@ -1,18 +1,9 @@
 
 public class Main {
+    public static void main (String args[])
+    {
+        System.out.println(Home8.countWords("Some*string  iTHR"));
 
-
-    public static  void main(String[] args){
-
-        URL myUrl = new URL.Composer()
-                .isSecure(true)
-                .authority(" ", "passw345")
-                .path("")
-                .port(467)
-                .host("")
-                .fragment("#yui")
-                .composer();
-        System.out.println(myUrl.toString());
 
     }
 }
