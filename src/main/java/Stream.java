@@ -4,7 +4,7 @@ import java.util.stream.IntStream;
 import static java.util.stream.Collectors.*;
 
 public class Stream {
-    public static List<String> words(String str, int mode){
+    private static List<String> words(String str, int mode){
         List<String> words = new ArrayList<>();
         if (mode == 1)
             words = Arrays.asList(str.split("\\s*[^a-zA-Z0-9_\'-]\\s*"));
@@ -17,6 +17,7 @@ public class Stream {
 
 
     public static Map<Integer, Integer> charEntries(String str) {
+        if (str == null || str.isEmpty()) return null;
         IntStream result = str.chars();
         return result.
                mapToObj(numb -> Integer.valueOf(numb))
@@ -52,11 +53,14 @@ public class Stream {
         return str;
     }
 
+    public static int countWords(String str){
+        if (str == null || str.isEmpty()) return 0;
+        return new ArrayList<>(words(str, 1)).size();
+    }
+
     public static Map<Integer, Integer> wordsLength(String str){
-        List<String> words = Arrays.asList(str.split("\\s*[^a-zA-Z0-9_\'-]\\s*"));
-        return words
+        return words(str, 1)
                 .stream()
-                .filter(item -> !item.isEmpty())
                 .collect(groupingBy(String::length))
                 .entrySet()
                 .stream()
@@ -66,10 +70,27 @@ public class Stream {
                 ));
     }
 
-    public static void main(String[] args) {
-        System.out.println(wordsLength("Lorem Ips-um&Dolor    ,,&^8 *&  $_Sit Am'et"));
-        System.out.println(charEntries("cssbss"));
-        System.out.println(beautify("JGHKJHLGHEK IU(*DUVNKL", "capitalize"));
-//        getCharEntries("wsjsfdf;ssldfsl slfsd sls ").stream().forEach(c -> c.forEach(System.out::println));
+    public static boolean validateCode(String str) {
+        List<String> elements = words(str, 2);
+        final boolean startValidation = (str == null || str.isEmpty() || elements.stream().count() != 2);
+        if (startValidation) return false;
+        final String firstPart = elements.get(0);
+        final String secondPart = elements.get(1);
+        final int getNumbers = Arrays.stream(firstPart
+                .chars()
+                .filter(Character::isDigit)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString()
+                .split("(?<=\\G.{2})"))
+                .map(Integer::parseInt)
+                .reduce(1, (multiply, value) -> multiply * value);
+        final int resultingNumb = Integer.parseInt(secondPart);
+        final boolean validateNumbers = (getNumbers == resultingNumb);
+        return firstPart.chars().filter(n -> Character.isDigit(n)
+                || (Character.isAlphabetic(n)
+                && Character.isUpperCase(n))).count() == 20
+                && firstPart.chars().filter(Character::isDigit).count() == 6
+                && validateNumbers
+                && secondPart.chars().filter(Character::isDigit).count() == 6;
     }
 }
