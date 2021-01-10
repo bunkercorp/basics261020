@@ -5,7 +5,6 @@ import java.util.stream.Stream;
 
 public class Home8 {
 
-
     public static String beautify(String input, String mode) {
         Stream<String> arrayStrings = Stream.of(input.split("[^a-zA-Z0-9'`''-''_']+"));
         //System.out.println(arrayStrings);
@@ -25,9 +24,40 @@ public class Home8 {
     }
 
 
-    public static int countWords(String input){
-        // List<Class_Example.WordBoundary> listIndex = ;
-        return Class_Example.wordBoundaries(input).size();
+    public static Map <Integer, Integer> charEntries(String input){
+
+        return
+                input.chars()
+                .mapToObj(item -> (int) item)
+                .collect(Collectors.toList())
+                .stream()
+                .collect(HashMap::new, (x, y) -> {
+                    if (x.containsKey(y))
+                        x.put(y, x.get(y) + 1);
+                    else
+                        x.put(y,1);
+                        }, HashMap:: putAll);
     }
+
+    public static Map<Integer, Integer> wordLengths(String input){
+        return
+                Stream.of(input.split("[^a-zA-Z0-9'`''-''_']+"))
+                .collect(Collectors.groupingBy(str -> str.length()))
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(
+                        a -> a.getKey(),
+                        a -> a.getValue().size()
+                ));
+
+    }
+
+    public static int countWords(String input){
+               return
+                Stream.of(input.split("[^a-zA-Z0-9'`''-''_']+"))
+                .collect(Collectors.toList()).size();
+    }
+
+
 
 }
