@@ -6,16 +6,14 @@ import static java.util.stream.Collectors.*;
 public class Stream {
     private static List<String> words(String str, int mode){
         List<String> words = new ArrayList<>();
-        if (mode == 1)
-            words = Arrays.asList(str.split("\\s*[^a-zA-Z0-9_\'-]\\s*"));
+        if (mode == 1) words = Arrays.asList(str.split("\\s*[^a-zA-Z0-9_\'-]\\s*"));
         if (mode == 2) words = Arrays.asList(str.split("\\s+"));
             return words
                     .stream()
                     .filter(item -> !item.isEmpty())
                     .collect(toList());
     }
-
-
+    
     public static Map<Integer, Integer> charEntries(String str) {
         if (str == null || str.isEmpty()) return null;
         IntStream result = str.chars();
@@ -38,19 +36,25 @@ public class Stream {
         mode = mode.toUpperCase();
         switch (mode) {
             case "LOWERCASE": {
-                return words(str, 2).stream().map(String::toLowerCase).collect(Collectors.joining());
+                return words(str, 2)
+                        .stream()
+                        .map(String::toLowerCase)
+                        .collect(Collectors.joining(" "));
             }
             case "UPPERCASE":
-                return words(str, 2).stream().map(String::toUpperCase).collect(Collectors.joining());
+                return words(str, 2)
+                        .stream()
+                        .map(String::toUpperCase)
+                        .collect(Collectors.joining(" "));
             case "CAPITALIZE":
-                return words(str, 2).stream().map(sent -> {
+                return words(str, 2)
+                        .stream()
+                        .map(sent -> {
                     sent.toLowerCase();
-                    System.out.println(sent);
                     return sent = sent.substring(0,1).toUpperCase()+sent.substring(1).toLowerCase();
         }).collect(Collectors.joining(" "));
-            default: break;
+            default: return null;
         }
-        return str;
     }
 
     public static int countWords(String str){
@@ -94,3 +98,4 @@ public class Stream {
                 && secondPart.chars().filter(Character::isDigit).count() == 6;
     }
 }
+
