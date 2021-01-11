@@ -8,6 +8,9 @@ import java.util.stream.Stream;
 public class Home8 {
 
     public static String beautify(String input, String mode) {
+        if(input.isEmpty())
+            return null;
+
         Stream<String> arrayStrings = Stream.of(input.split("[^a-zA-Z0-9'`''-''_']+"));
         //System.out.println(arrayStrings);
         switch (mode.toUpperCase()) {
@@ -27,6 +30,8 @@ public class Home8 {
 
 
     public static Map <Integer, Integer> charEntries(String input){
+        if(input.isEmpty())
+            return null;
 
         return
                 input.chars()
@@ -42,6 +47,8 @@ public class Home8 {
     }
 
     public static Map<Integer, Integer> wordLengths(String input){
+        if(input.isEmpty())
+            return null;
         return
                 Stream.of(input.split("[^a-zA-Z0-9'`''-''_']+"))
                 .collect(Collectors.groupingBy(str -> str.length()))
@@ -55,6 +62,8 @@ public class Home8 {
     }
 
     public static int countWords(String input){
+        if(input.isEmpty())
+            return 0;
                return
                 Stream.of(input.split("[^a-zA-Z0-9'`''-''_']+"))
                 .collect(Collectors.toList()).size();
