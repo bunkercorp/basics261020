@@ -81,10 +81,9 @@ public class Home8 {
         if( digit.size() != 12)
             return  false;
 
-        int res =1;
+
         Optional <Integer> left = IntStream
                 .range(0, digit.size()/2)
-                //.filter(digit.indexOf() % 2)
                 .mapToObj(elem ->  {
                     if (elem %2 == 0)
                         return digit.get(elem) * 10 + digit.get(elem+1);
