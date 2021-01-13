@@ -36,6 +36,7 @@ public class Stream {
         mode = mode.toUpperCase();
         switch (mode) {
             case "LOWERCASE": {
+               // смысл аппер\ловеркейсить по словам?
                 return words(str, 2)
                         .stream()
                         .map(String::toLowerCase)
@@ -59,6 +60,7 @@ public class Stream {
 
     public static int countWords(String str){
         if (str == null || str.isEmpty()) return 0;
+      //зачем копировать выхлоп? words(str, 1).size() это законно
         return new ArrayList<>(words(str, 1)).size();
     }
 
