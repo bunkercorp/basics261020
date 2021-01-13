@@ -13,6 +13,7 @@ public class Home8 {
 
         Stream<String> arrayStrings = Stream.of(input.split("[^a-zA-Z0-9'`''-''_']+"));
         //System.out.println(arrayStrings);
+        // смысл аппер\ловеркейсить каждое слово?
         switch (mode.toUpperCase()) {
             case "UPPERCASE":
                 return arrayStrings.map(String::toUpperCase).
@@ -35,7 +36,7 @@ public class Home8 {
 
         return
                 input.chars()
-                .mapToObj(item -> (int) item)
+                        .mapToObj(item -> (int) item)//.boxed()
                 .collect(Collectors.toList())
                 .stream()
                 .collect(HashMap::new, (x, y) -> {
@@ -65,7 +66,8 @@ public class Home8 {
         if(input.isEmpty())
             return 0;
                return
-                Stream.of(input.split("[^a-zA-Z0-9'`''-''_']+"))
+                //сплит по одной и той же регулярке напрашивается в метод, разве нет?
+                       Stream.of(input.split("[^a-zA-Z0-9'`''-''_']+"))
                 .collect(Collectors.toList()).size();
     }
 
@@ -107,7 +109,7 @@ public class Home8 {
 
         //System.out.println(left.get());
         return Long.parseLong(right) == left.get();
-
+        // у тебя там Optional, посему return left.isPresent() && Long.parseLong(right) == left.get();
 
     }
 
