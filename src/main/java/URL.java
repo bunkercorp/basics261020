@@ -9,7 +9,7 @@ public class URL {
     public final String strFrag;
     public final String host;
 
-    private URL(String pr, String usr, String pw, String hst, int prt, String pth, String frag){
+    private URL(String pr, String usr, String pw, String hst, int prt, String pth, String frag) {
         proto = pr;
         user = usr;
         pwd = pw;
@@ -23,16 +23,24 @@ public class URL {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(proto);
+
+        /* ты два раза проверяешь одно и то же условие (!user.isEmpty())
+        if (!user.isEmpty()){
+        sb.append(user);
+        if (!pwd.isEmpty()) sb.append(":").append(pwd);
+        sb.append("@");
+        } */
         if (!user.isEmpty() && !pwd.isEmpty()) sb.append(user).append(":").append(pwd).append("@");
         else if (pwd.isEmpty() && !user.isEmpty()) sb.append(user).append("@");
         sb.append(host.toLowerCase());
-        if (number != 80 && number !=443) sb.append(":").append(number);
+        // у порта есть зависимость от протокола
+        if (number != 80 && number != 443) sb.append(":").append(number);
         if (strPath != null) sb.append(strPath);
         if (strFrag != null) sb.append("#").append(strFrag);
         return sb.toString();
     }
 
-    public static class Composer{
+    public static class Composer {
         final private String s = "not valid";
         private String protocol;
         private int portNumber;
@@ -43,11 +51,12 @@ public class URL {
         private String server;
 
         private static boolean validString(String input) {
-            return  (input == null || input.isEmpty());
+            return (input == null || input.isEmpty());
         }
 
-        private static boolean validChars(String input){
-            for (int i = 0; i < input.length(); i++){
+        private static boolean validChars(String input) {
+            for (int i = 0; i < input.length(); i++) {
+                // можно же использовать символьные литералы вместо кодов. Будет более читаемо
                 final boolean chrs = (input.charAt(i) > 35 && input.charAt(i) < 60 ||
                         input.charAt(i) == 61 || input.charAt(i) == 95 ||
                         input.charAt(i) == 126 || input.charAt(i) == 33 ||
@@ -60,6 +69,7 @@ public class URL {
 
         public Composer addHost(String hst) {
             if (validString(hst)) return this;
+             // и не лень было =)
             final String ipv4
                     = "^[^0](25[0-5]|2[0-4][0-9]|[1][0-9][0-9]|[1-9]?[0-9]?)\\." +
                     "(25[0-5]|2[0-4][0-9]|[1][0-9][0-9]|[1-9]?[0-9])\\." +
@@ -72,7 +82,8 @@ public class URL {
                 server = hst;
                 return this;
             }
-            for (int j = hst.length() - 1; j > 0; j--){
+            // очень сложно понять, что тут происходит. Коды символов ни о чем не говорят.
+            for (int j = hst.length() - 1; j > 0; j--) {
                 if (hst.charAt(j) == 46) break;
                 else if (hst.charAt(j) > 47 && hst.charAt(j) < 58)
                     return this;
@@ -97,12 +108,11 @@ public class URL {
             return this;
         }
 
-        public Composer isSecure(boolean proto){
+        public Composer isSecure(boolean proto) {
             if (proto) {
                 protocol = "https://";
                 portNumber = 443;
-            }
-            else{
+            } else {
                 protocol = "http://";
                 portNumber = 80;
             }
@@ -113,8 +123,7 @@ public class URL {
             if (number > 65535 || number < 1) {
                 portNumber = 0;
                 return this;
-            }
-            else portNumber = number;
+            } else portNumber = number;
             return this;
         }
 
@@ -123,6 +132,7 @@ public class URL {
                 User = s;
                 return this;
             }
+            // непонятно. Зачем ты передаешь в validChars строку несколько раз, по количеству символов в этой строке?
             for (int i = 1; i < usr.length(); i++) {
                 if (!validChars(usr)) {
                     User = s;
@@ -158,7 +168,7 @@ public class URL {
                 return this;
             }
             for (int i = 1; i < pth.length(); i++) {
-                if (!validChars(pth) || pth.charAt(i) == 47 && pth.charAt(i-1) == 47) {
+                if (!validChars(pth) || pth.charAt(i) == 47 && pth.charAt(i - 1) == 47) {
                     Path = s;
                     return this;
                 }
@@ -167,14 +177,14 @@ public class URL {
             return this;
         }
 
-        public Composer path(String ... paths){
+        public Composer path(String... paths) {
             StringBuilder sb = new StringBuilder();
-            for(String path : paths){
+            for (String path : paths) {
                 if (validString(path)) {
                     Path = s;
                     return this;
                 }
-                for (int i = 0; i < path.length(); i++){
+                for (int i = 0; i < path.length(); i++) {
                     if (!validChars(path)) {
                         Path = s;
                         return this;
@@ -192,7 +202,7 @@ public class URL {
                 Fragment = frgmnt;
                 return this;
             } else {
-                Fragment =s;
+                Fragment = s;
                 return this;
             }
         }
