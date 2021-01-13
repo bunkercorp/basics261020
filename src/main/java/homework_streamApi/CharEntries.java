@@ -2,6 +2,7 @@ package homework_streamApi;
 
 import java.util.LinkedHashMap;
 
+//а где Stream API, собственно?
 public class CharEntries {
 
     private LinkedHashMap<Integer, Integer> charEntriesMap;
