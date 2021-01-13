@@ -11,11 +11,13 @@ import static java.util.stream.Collectors.*;
 
 public class ht8 {
 
+    // почему возвращаемый тип так жестко определен? Можно же просто List<String> возвращать
     public static ArrayList<String> getWords(String input) {
         String[] words = input.split("[^A-Za-z0-9_'-]");
         ArrayList<String> wordList = new ArrayList<String>(Arrays.asList(words));
         wordList.removeAll(Arrays.asList("", null));
         return wordList;
+        // жОстко. Как насчет  return Arrays.stream(input.split("[^A-Za-z0-9_'-]")).filter(s -> s != null && !s.isEmpty()).collect(Collectors.toList()); вместо всего, что написано выше?
     }
 
     public static boolean isNotEmpty(String input) {
@@ -31,10 +33,12 @@ public class ht8 {
 
         return wordList
                 .stream()
+                // мне идея тут подсвечивает
                 .collect(Collectors.groupingBy(e -> e.length()))
                 .entrySet()
                 .stream()
                 .collect(Collectors.toMap(
+                        // и тут
                         e -> e.getKey(),
                         e -> e.getValue().size()
                 ));
@@ -44,16 +48,19 @@ public class ht8 {
         if (!isNotEmpty(input))
             return 0;
 
+        // зачем ты делаешь полную копию выхлопа getWords? тебе достаточно сохранить на него ссылку: List<String> wordList = getWords(input)
         ArrayList<String> wordList = new ArrayList<String>(getWords(input));
 
         return wordList
                 .size();
 
+        // return isNotEmpty(input) ? getWords(input).size() : 0; И все.
     }
 
+    // Map<Character, Integer> ???
     public static Map<Integer, Integer> charEntries(String input) {
         if (!isNotEmpty(input))
-            return null;
+            return null; // не согласен. Вернуть пустую мапу здесь выглядит логичнее, так как для пустой\нулловой строки эта мапа именно что пустая, а не нулловая
 
         Map<Integer, Integer> charEntries = input.codePoints().boxed()
                 .collect(toMap(
@@ -73,12 +80,13 @@ public class ht8 {
 
         switch (mode) {
             case UPPERCASE: {
+                //это оверкилл
                 return Arrays.stream(input.split("\\s+"))
                         .map(n -> n.toUpperCase())
                         .collect(Collectors.joining(" "));
 
             }
-
+            // и это оверкилл
             case LOWERCASE: {
                 return Arrays.stream(input.split("\\s+"))
                         .map(n -> n.toLowerCase())
@@ -95,8 +103,7 @@ public class ht8 {
         return input;
     }
 
-    public static boolean validateCode(String input)
-    {
+    public static boolean validateCode(String input) {
         if (!isNotEmpty(input))
             return false;
 
