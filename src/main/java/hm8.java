@@ -13,6 +13,7 @@ public class hm8 {
                 return null;
 
 
+           // смысл аппер\ловеркейсить по словам?
             return Arrays.stream(str.split("(?=[^\\w\\d-_`])|(?<=[^\\w\\d-_`])"))
                     .map(word -> {
                         switch (beautifier) {
@@ -45,7 +46,7 @@ public class hm8 {
         public static int countWords(String words){
             if (words == null || words.isEmpty())
                 return 0;
-
+            // этот твой сплит по одной и той же регулярке напрашивается в метод
             return (int)Arrays.stream(words.split("[^\\w\\d-_`]+"))
                     .filter(s -> !s.isEmpty())
                     .count();
@@ -64,7 +65,7 @@ public class hm8 {
         public static boolean validateCode(String code){
             if (code == null || code == "")
                 return false;
-
+            //что-то мне подсказывает, что здесь что-то идет не так
             String[] part = code.split(" ");
             int[] number = codeNumbers(part[0]);
             int target = Integer.parseInt(part[1]);
