@@ -26,7 +26,9 @@ public class HW_8 {
 
     public static String beautify(String s, Type type) {
 
+
         switch (type) {
+            //смысл аппер\ловеркейсить посимвольно?
             case LOWERCASE -> {
                 return s.chars().mapToObj(obj -> Character.toLowerCase((char) obj)).collect(CHAR_SEQUENCE_COLLECTOR);
             }
@@ -61,6 +63,7 @@ public class HW_8 {
         private boolean firstChar = true;
     }
 
+     // Map<Character, Integer> ???
     public static Map<Integer, Integer> charEntries(String statistic) {
         return statistic.codePoints().boxed()
                 .collect(toMap(
