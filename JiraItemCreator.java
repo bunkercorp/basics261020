@@ -166,18 +166,5 @@ public class JiraItemCreator {
         }
         return created;
     }
-
-    public static void main(String[] args) {
-        ArrayList<String> labs = new ArrayList<>();
-        labs.add("AQA");
-        labs.add("Lapin");
-        labs.add("builder");
-        JiraItem ji = new JiraItemCreator("AQ")
-                .ofType("Ошибка")
-                .withSummary("JiraItem #59")
-                .withDescription("STR:\n 1. Compose HTTP-builder\n 2. Compose JiraItem-builder\n 3. Send REST Api with Java")
-                .create();
-        System.out.println(ji.toString());
-    }
 }
 
