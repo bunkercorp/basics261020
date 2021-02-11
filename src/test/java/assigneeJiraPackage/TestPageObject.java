@@ -1,7 +1,5 @@
 package assigneeJiraPackage;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
 import java.net.URL;
@@ -11,15 +9,6 @@ import org.apache.commons.codec.binary.Base64;
 public class TestPageObject {
 
     Creds ola = new Creds();
-
-    public void authorization() {
-        final WebElement userName = Browser.getBrowser().findElement(By.cssSelector("[class = 'field-group'] [id = 'login-form-username']"));
-        userName.sendKeys(ola.login);
-        final WebElement password = Browser.getBrowser().findElement(By.cssSelector("[class = 'field-group'] [id = 'login-form-password']"));
-        password.sendKeys(ola.password);
-        final WebElement submitButton = Browser.getBrowser().findElement(By.cssSelector("[class = 'buttons'] [id = 'login-form-submit']"));
-        submitButton.click();
-    }
 
     public String requestJiraData(final String urlStr, final String requestMethod, final String payload) throws IOException {
 
