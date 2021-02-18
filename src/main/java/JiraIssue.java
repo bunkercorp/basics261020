@@ -1,185 +1,167 @@
-import com.google.common.base.Strings;
-import com.jsunsoft.http.HttpRequestBuilder;
-import org.apache.commons.codec.binary.Base64;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import javax.json.JsonObject;
-import javax.net.ssl.HttpsURLConnection;
 import java.io.*;
-import java.math.BigDecimal;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class JiraIssue {
 
-    public final String projectKey;
-    public final String projectType;
-    public final String projectPriority;
-    public final Collection<String> projectLabels;
-    public final String projectDescription;
-    public final String projectSummary;
+    public String urlNewIssue;
+    public String idNewIssue;
+    public String keyNewIssue;
 
-
-    JiraIssue(String inputprojectKey, String inputprojectType, String inputprojectPriority, Collection<String> inputprojectLabels, String inputprojectDescription, String inputprojectSummary) {
-
-        projectKey = inputprojectKey;
-        projectType = inputprojectType;
-        projectPriority = inputprojectPriority;
-        projectLabels = inputprojectLabels;
-        projectDescription = inputprojectDescription;
-        projectSummary = inputprojectSummary;
-
+    public void setResponse(String response) {
+        JSONObject jiraResponse = new JSONObject(response);
+        idNewIssue = jiraResponse.getString("id");
+        keyNewIssue = jiraResponse.getString("key");
+        urlNewIssue = jiraResponse.getString("self");
     }
 
-    @Override
     public String toString() {
-        return String.format("Key: %s \nType: %s \nPriority: %s \nLabels: %s \nDescription: %s \nSummary: %s", projectKey, projectType, projectPriority, projectLabels, projectDescription, projectSummary);
+        return String.format("%s\n%s\n%s", idNewIssue, keyNewIssue, urlNewIssue);
     }
 
 
     public static class Builder {
-        private String builderprojectKey;
+        private String projectKey = "null";
         private String builderOftype;
-        private String builderwithPriority;
-        private Collection<String> builderwithLabels;
+        private String builderwithPriority = "1";
+        private List<String> labels = new ArrayList<>();
         private String builderwithDescription;
         private String builderwithSummary;
+        private List<String> errors = new ArrayList<>();
+        public JiraIssue newJiraIssue;
+        private int projectId = -1;
 
+        public Builder(String projectKey) throws IOException {
+            String response = JiraConnection.requestJiraData("https://jira.ithillel.com/rest/api/2/project", "GET", null);
+            JSONArray projectsParsed = new JSONArray(response);
+            for (int i = 0; i < projectsParsed.length(); i += 1) {
+                if (projectsParsed.getJSONObject(i).getString("name").contentEquals(projectKey)) {
+                    projectId = projectsParsed.getJSONObject(i).getInt("id");
+                    break;
+                }
+            }
+            this.projectKey = projectKey;
+            newJiraIssue = new JiraIssue();
+        }
 
-        public static boolean hasSpace(String input) {
-            final boolean hasSpace;
-            return hasSpace = (input.indexOf(' ') != -1);
+        public final static class jiraIssueErrors extends Error {
+            public jiraIssueErrors(ArrayList<String> errors) {
+                super("Cannot create an issue:\n\t" + String.join("\n\t", errors));
+            }
         }
 
 
-        public static boolean isEmpty(String input) {
-            final boolean isEmpty;
-            return isEmpty = (input == null) || (input.isEmpty());
+        public static boolean isNotEmpty(String input) {
+            return input != null && !input.isEmpty();
         }
 
-        public Builder getprojectKey(String projectKey) {
-            if ((hasSpace(projectKey)) || (isEmpty(projectKey))) {
-                builderprojectKey = null;
-                return this;
-            } else
-                builderprojectKey = projectKey;
-            return this;
-        }
 
         public Builder ofType(String issueTypeDisplayName) {
-            if ((hasSpace(issueTypeDisplayName)) || (isEmpty(issueTypeDisplayName))) {
-                builderOftype = "Story";
-                return this;
-            } else
+            if (isNotEmpty(issueTypeDisplayName))
                 builderOftype = issueTypeDisplayName;
             return this;
         }
 
-        public Builder withPriority(String priorityDisplayName) {
-            if ((hasSpace(priorityDisplayName)) || (isEmpty(priorityDisplayName))) {
-                builderwithPriority = "Medium";
-                return this;
-            } else
-                builderwithPriority = priorityDisplayName;
+
+        public Builder withPriority(String priorityDisplayName) throws IOException {
+            String response = JiraConnection.requestJiraData("https://jira.ithillel.com/rest/api/2/priority", "GET", null);
+            JSONArray prioritiesParsed = new JSONArray(response);
+            for (int i = 0; i < prioritiesParsed.length(); i += 1) {
+                if (prioritiesParsed.getJSONObject(i).getString("name").contentEquals(priorityDisplayName)) {
+                    builderwithPriority = prioritiesParsed.getJSONObject(i).getString("id");
+                    break;
+                }
+            }
             return this;
         }
 
-        public Builder withLabels(Collection<String> labels) {
-            if ((labels == null) || (labels.isEmpty())) {
-                builderwithLabels = null;
-                return this;
-            } else
-                builderwithLabels = labels;
+        public Builder withLabels(ArrayList<String> labels) {
+            labels.forEach(
+                    label -> {
+                        if (isNotEmpty(label))
+                            this.labels.add(label);
+                    }
+            );
             return this;
         }
 
         public Builder withDescription(String content) {
-            if (isEmpty(content)) {
-                builderwithDescription = null;
-                return this;
-            } else builderwithDescription = content;
+            if (isNotEmpty(content))
+                builderwithDescription = content;
             return this;
         }
 
         public Builder withSummary(String summary) {
-            if (isEmpty(summary)) {
-                builderwithSummary = null;
-                return this;
-            } else builderwithSummary = summary;
+            if (isNotEmpty(summary))
+                builderwithSummary = summary;
             return this;
         }
 
 
         public JiraIssue create() throws IOException {
 
-            try {
-                final String creds = "LOGIN:PASS";
+            if (builderwithSummary == null)
+                errors.add("Add summary");
 
-                final String urlStr = "https://jira.ithillel.com/rest/api/2/issue/";
-                final URL urlObj = new URL(urlStr);
-                final HttpsURLConnection httpCon = (HttpsURLConnection) urlObj.openConnection();
-                httpCon.setDoOutput(true);
-                httpCon.setRequestMethod("POST");
-                httpCon.setRequestProperty("Authorization", "Basic " + new Base64().encodeToString(creds.getBytes()));
+            if (builderOftype == null)
+                errors.add("Trouble with issue type");
 
+            if (projectId > 0 && builderwithSummary != null && builderOftype != null) {
+                final int[] issueTypeid = {-1};
 
-                JsonObject createIssue = javax.json.Json.createObjectBuilder()
-                        .add("fields",
-                                javax.json.Json.createObjectBuilder().add("project",
-                                        javax.json.Json.createObjectBuilder().add("key", builderprojectKey))
-                                        .add("summary", builderwithSummary)
-                                        .add("description", builderwithDescription)
-                                        .add("labels", String.valueOf(builderwithLabels))
-                                        .add("priority", builderwithPriority)
-                                        .add("issuetype",
-                                                javax.json.Json.createObjectBuilder().add("name", builderOftype))
-                        ).build();
-
-                System.out.println(createIssue.toString());
-
-                final OutputStreamWriter out = new OutputStreamWriter(httpCon.getOutputStream());
-                out.write(createIssue.toString());
-                out.close();
-
-
-                final List<String> result = new ArrayList<String>();
-
-                try {
-                    InputStream inputStream = httpCon.getInputStream();
-                    System.out.println(inputStream);
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
+                String response = JiraConnection.requestJiraData(String.format("https://jira.ithillel.com/rest/api/2/project/%d", projectId), "GET", null);
+                JSONArray typesParsed = new JSONObject(response).getJSONArray("issueTypes");
+                for (int i = 0; i < typesParsed.length(); i += 1) {
+                    if (typesParsed.getJSONObject(i).getString("name").contentEquals(builderOftype)) {
+                        issueTypeid[0] = typesParsed.getJSONObject(i).getInt("id");
+                        break;
+                    }
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+
+                if (issueTypeid[0] == -1) {
+                    errors.add("Entered issue type doesn't exist");
+                    issueTypeid[0] = 0;
+                }
+
+                if (issueTypeid[0] > 0) {
+
+                    JSONArray labels = new JSONArray();
+                    this.labels.stream().distinct().forEach(labels::put);
+
+                    JSONObject payload = new JSONObject();
+                    JSONObject fields = new JSONObject();
+                    fields.put("project", new JSONObject().put("id", projectId));
+                    fields.put("summary", builderwithSummary);
+                    fields.put("labels", labels);
+                    fields.put("description", builderwithDescription);
+                    fields.put("priority", new JSONObject().put("id", builderwithPriority));
+                    fields.put("reporter", new JSONObject().put("name", "jen.kravt"));
+                    fields.put("issuetype", new JSONObject().put("id", issueTypeid[0]));
+
+                    payload.put("fields", fields);
+
+                    System.out.println(payload.toString());
+
+                    String responseNewIssue = JiraConnection.requestJiraData("https://jira.ithillel.com/rest/api/2/issue", "POST", payload.toString());
+
+
+                    newJiraIssue.setResponse(responseNewIssue);
+                } else {
+                    errors.add("Project is not valid");
+                }
+            }
+            if (!errors.isEmpty()) {
+                throw new jiraIssueErrors((ArrayList<String>) errors);
             }
 
-//            BufferedReader rd;
-//
-//            try {
-//                rd = new BufferedReader(new InputStreamReader(httpCon.getInputStream()));
-//            } catch (Exception e) {
-//                rd = new BufferedReader(new InputStreamReader(httpCon.getErrorStream()));
-//            }
-//
-//            String line;
-//
-//            while ((line = rd.readLine()) != null) {
-//                result.add(line);
-//            }
-//
-//            System.out.println(result);
-
-
-            return new JiraIssue(builderprojectKey, builderOftype, builderwithPriority, builderwithLabels, builderwithDescription, builderwithSummary);
-
+            return newJiraIssue;
         }
-
     }
-
-
 }
+
+
+
+
+
