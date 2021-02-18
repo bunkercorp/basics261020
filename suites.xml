@@ -3,12 +3,12 @@
 <suite name="Suite" >
     <test name="test" >
         <classes>
-            <class name="assigneeJiraPackage.PostAndCheckJiraIssue" />
+            <class name="JenkinsTest" />
         </classes>
     </test>
     <test name="testTwo" >
         <classes>
-            <class name="assigneeJiraPackage.PostAndCheckJiraIssue" />
+            <class name="JenkinsTest" />
         </classes>
     </test>
 </suite>
