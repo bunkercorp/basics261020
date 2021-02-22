@@ -24,7 +24,7 @@ public class Browser {
             if (System.getProperty("browser").equals("chrome")) {
 
                 if (isRemote) {
-                    WebDriver browser =
+                    browser =
                             new RemoteWebDriver(new URL("http://10.0.0.69:4444/wd/hub"), DesiredCapabilities.chrome());
 
                 } else {
@@ -36,7 +36,7 @@ public class Browser {
         } else if
         (System.getProperty("browser").equals("firefox")) {
             if (isRemote) {
-                WebDriver browser =
+                browser =
                         new RemoteWebDriver(new URL("http://10.0.0.69:4444/wd/hub"), DesiredCapabilities.firefox());
 
             } else {
