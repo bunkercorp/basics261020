@@ -7,13 +7,15 @@ import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 
+import static testSuites.Browser.getBrowser;
+
 public class TestTwo {
     @Test
     public static void test() throws MalformedURLException {
 
-        Browser.getBrowser().get("https://ru.wikipedia.org/wiki/PandaBoard");
+        getBrowser().get("https://ru.wikipedia.org/wiki/PandaBoard");
 
-        final WebElement titleOfArticle = Browser.getBrowser().findElements(By.cssSelector("[id = 'content'] [id = 'firstHeading']")).get(0);
+        final WebElement titleOfArticle = getBrowser().findElements(By.cssSelector("[id = 'content'] [id = 'firstHeading']")).get(0);
         String title = titleOfArticle.getText();
 
         Assert.assertEquals(title, "PandaBoard");
