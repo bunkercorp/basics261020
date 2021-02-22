@@ -1,14 +1,10 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="Suite" >
-    <test name="test" >
+<suite name="testSuites" >
+    <test name="testOne" >
         <classes>
-            <class name="JenkinsTest" />
-        </classes>
-    </test>
-    <test name="testTwo" >
-        <classes>
-            <class name="JenkinsTest" />
+            <class name="testSuites.TestOne" />
+            <class name="testSuites.TestTwo" />
         </classes>
     </test>
 </suite>
