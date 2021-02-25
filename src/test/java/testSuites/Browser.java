@@ -18,9 +18,8 @@ public class Browser {
 
     public static WebDriver getBrowser() throws MalformedURLException {
 
-        final boolean isRemote = "true".equalsIgnoreCase(System.getProperty("remote"));
         if (browser == null) {
-
+            final boolean isRemote = "true".equalsIgnoreCase(System.getProperty("remote"));
             if (System.getProperty("browser").equals("chrome")) {
 
                 if (isRemote) {
@@ -30,20 +29,22 @@ public class Browser {
                 } else {
                     final String binPath = String.format("%s/bin/chromedriver.exe", System.getProperty("user.dir"));
                     System.setProperty("webdriver.chrome.driver", binPath);
+                    browser = new ChromeDriver();
                 }
-                browser = new ChromeDriver();
-            }
-        } else if
-        (System.getProperty("browser").equals("firefox")) {
-            if (isRemote) {
-                browser =
-                        new RemoteWebDriver(new URL("http://10.0.0.69:4444/wd/hub"), DesiredCapabilities.firefox());
 
-            } else {
-                final String binPath = String.format("%s/bin/geckodriver.exe", System.getProperty("user.dir"));
-                System.setProperty("webdriver.gecko.driver", binPath);
+            } else if
+            (System.getProperty("browser").equals("firefox")) {
+                if (isRemote) {
+                    browser =
+                            new RemoteWebDriver(new URL("http://10.0.0.69:4444/wd/hub"), DesiredCapabilities.firefox());
+
+                } else {
+                    final String binPath = String.format("%s/bin/geckodriver.exe", System.getProperty("user.dir"));
+                    System.setProperty("webdriver.gecko.driver", binPath);
+                    browser = new FirefoxDriver();
+                }
+
             }
-            browser = new FirefoxDriver();
         }
         return browser;
     }
