@@ -3,8 +3,8 @@
 <suite name="testSuites" >
     <test name="testOne" >
         <classes>
-            <class name="testSuites.TestOne" />
-            <class name="testSuites.TestTwo" />
+            <class name="testSuites." />
+            <class name="testSuites." />
         </classes>
     </test>
 </suite>
