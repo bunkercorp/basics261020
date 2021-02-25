@@ -1,9 +1,16 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="testSuites" >
-    <test name="testOne" >
+<!--    <test name="testOne" >-->
+<!--        <classes>-->
+<!--            <class name="testSuites.VovkLastThree" />-->
+<!--        </classes>-->
+<!--    </test>-->
+
+    <test name="testKravt" >
         <classes>
-            <class name="testSuites.VovkLastThree" />
+            <class name="testSuites.KravtLast3Minus3" />
         </classes>
     </test>
+
 </suite>
