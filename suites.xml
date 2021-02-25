@@ -3,8 +3,7 @@
 <suite name="testSuites" >
     <test name="testOne" >
         <classes>
-            <class name="testSuites." />
-            <class name="testSuites." />
+            <class name="testSuites.VovkLastThree" />
         </classes>
     </test>
 </suite>
