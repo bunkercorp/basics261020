@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class LapinPartTask {
     public static WebDriver browser;
-git
+
     public static void isSelectedOption(){
         List<WebElement> people = browser.findElements(By.className("xp__guests__count"));
         List<String> strPeople = new ArrayList<>();
