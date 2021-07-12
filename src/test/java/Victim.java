@@ -1,12 +1,17 @@
 import org.testng.annotations.Test;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class Victim {
 
     @Test
-    public static void test() {
-        final String lorem = System.getProperty("lorem");
-        final int ipsum = Integer.parseInt(System.getProperty("ipsum"));
-        System.out.printf("lorem='%s' ipsum=%d\n", lorem, ipsum);
+    public static void test() throws IOException {
+        final String payload = System.getProperty("payload");
+        BufferedWriter writer = new BufferedWriter(new FileWriter("payload.txt"));
+        writer.write(payload);
+        writer.close();
     }
 
 }
